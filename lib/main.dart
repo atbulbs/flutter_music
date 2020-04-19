@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_music/pages/recommend_page.dart';
+import 'package:flutter_music/pages/rank_page.dart';
+import 'package:flutter_music/pages/search_page.dart';
 
-class TabbedAppBarSample extends StatelessWidget {
+void main() {
+  runApp(new FlutterMusic());
+}
+
+class FlutterMusic extends StatefulWidget {
+  @override
+  _FlutterMusicState createState() => _FlutterMusicState();
+}
+
+class _FlutterMusicState extends State<FlutterMusic> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -8,43 +20,28 @@ class TabbedAppBarSample extends StatelessWidget {
         length: choices.length,
         child: new Scaffold(
           appBar: new AppBar(
-            backgroundColor: Colors.red,
+            backgroundColor: new Color(0xffd43c33),
             title: const Text('Flutter Music'),
-//            bottom:
-          ),
-          body: new Column(
-            children: <Widget>[
-              new TabBar(
-                indicatorSize: TabBarIndicatorSize.label,//指示器大小的计算方式，TabBarIndicatorSize.tab：跟每个tab等宽，TabBarIndicatorSize.label：跟文字等宽
-                indicatorColor: Colors.red,
-                labelColor: Colors.red,
-                unselectedLabelColor: Colors.black,
-                labelStyle: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                ),
-                unselectedLabelStyle: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400
-                ),
-                tabs: choices.map((Choice choice) {
-                  return new Tab(
-                    text: choice.title,
-//                  icon: new Icon(choice.icon),
-                  );
-                }).toList(),
+            bottom: new TabBar(
+              indicatorSize: TabBarIndicatorSize.label, //指示器大小的计算方式，TabBarIndicatorSize.tab：跟每个tab等宽，TabBarIndicatorSize.label：跟文字等宽
+              indicatorColor: new Color(0xffd43c33),
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.black,
+              labelStyle: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
               ),
-//              TabBarView(
-//                children: choices.map((Choice choice) {
-//                  return new Padding(
-//                    padding: const EdgeInsets.all(16.0),
-//                    child: new ChoiceCard(choice: choice),
-//                  );
-//                }).toList(),
-//              ),
-            ],
-
-          )
+              unselectedLabelStyle: new TextStyle(fontSize: 15, fontWeight: FontWeight.w400),
+              tabs: choices.map((Choice choice) {
+                return new Tab(
+                  text: choice.title,
+                );
+              }).toList(),
+            ),
+          ),
+          body: new TabBarView(
+            children: <Widget>[RecommendPage(), RankPage(), SearchPage()],
+          ),
         ),
       ),
     );
@@ -52,9 +49,8 @@ class TabbedAppBarSample extends StatelessWidget {
 }
 
 class Choice {
-  const Choice({ this.title, this.icon });
+  const Choice({this.title});
   final String title;
-  final IconData icon;
 }
 
 const List<Choice> choices = const <Choice>[
@@ -62,31 +58,3 @@ const List<Choice> choices = const <Choice>[
   const Choice(title: '热歌榜'),
   const Choice(title: '搜索'),
 ];
-
-class ChoiceCard extends StatelessWidget {
-  const ChoiceCard({ Key key, this.choice }) : super(key: key);
-
-  final Choice choice;
-
-  @override
-  Widget build(BuildContext context) {
-    final TextStyle textStyle = Theme.of(context).textTheme.display1;
-    return new Card(
-      color: Colors.white,
-      child: new Center(
-        child: new Column(
-          mainAxisSize: MainAxisSize.max,
-//          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-//            new Icon(choice.icon, size: 128.0, color: textStyle.color),
-            new Text(choice.title, style: textStyle),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-void main() {
-  runApp(new TabbedAppBarSample());
-}
