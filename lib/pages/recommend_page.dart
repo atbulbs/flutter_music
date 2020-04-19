@@ -22,7 +22,6 @@ class _RecommendPageState extends State<RecommendPage> {
           children: <Widget>[
             Container(
               height: 160,
-              // Option + Shift + Up/Down
               child: new Swiper(
                 itemCount: _imageUrls.length,
                 autoplay: true,
@@ -40,15 +39,12 @@ class _RecommendPageState extends State<RecommendPage> {
                     activeSize: 10.0
                   )
                 ),
-//                control: new SwiperControl(),
               ),
             )
           ]
         )
       )
-
     );
-
   }
 
 }
